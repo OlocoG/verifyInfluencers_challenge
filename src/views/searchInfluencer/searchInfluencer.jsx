@@ -2,6 +2,7 @@ import styles from "./searchInfluencer.module.css";
 import SwitchButton from "../../components/switchButton.jsx";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { validateForm } from "../../helpers/validation.js";
 export default function SearchInfluencer() {
   // eslint-disable-next-line no-unused-vars
   const [selectedButton, setSelectedButton] = useState("");
@@ -19,8 +20,9 @@ export default function SearchInfluencer() {
       scientisJournals: [],
       notesForResearchAssistant: "",
     },
+    validate: validateForm,
     onSubmit: (values) => {
-        console.log(values);
+      console.log(values);
     },
   });
   // Función para manejar la selección del botón
@@ -83,8 +85,13 @@ export default function SearchInfluencer() {
         style={{
           backgroundColor: "rgb(46, 67, 87) ",
           padding: "auto",
-          width: "auto",
-          height: "auto",
+          width: "70%",
+          height: "100%",
+          alignItems: "center",
+          alignContent: "center",
+          justifyContent: "center",
+          margin: "auto",
+          border: "1px solid #ccc",
         }}
       >
         <h2 style={{ paddingLeft: "10px" }}>Research Configuration</h2>
@@ -147,28 +154,57 @@ export default function SearchInfluencer() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              {/* Solo aparece el error si el campo ha sido tocado */}
+              {formik.touched.productsToFind && formik.errors.productsToFind ? (
+                <label className={styles.errorMessage}>
+                  {formik.errors.productsToFind}
+                </label>
+              ) : (
+                ""
+              )}
             </div>
             <div className={styles.div7}>
               <h4>Include Renevue Analisis</h4>
-              <SwitchButton 
+              <SwitchButton
                 checked={formik.values.includeRenevueAnalysis}
-                onChange={() => formik.setFieldValue("includeRenevueAnalysis", !formik.values.includeRenevueAnalysis)} ></SwitchButton>
+                onChange={() =>
+                  formik.setFieldValue(
+                    "includeRenevueAnalysis",
+                    !formik.values.includeRenevueAnalysis
+                  )
+                }
+              ></SwitchButton>
               <p>Analize monetization method and estimate earnings</p>
             </div>
             <div className={styles.div8}>
               <h4>Verify with Scientific Journals</h4>
-              <SwitchButton onChange={() => formik.setFieldValue("verifyWithScientificJournals", !formik.values.verifyWithScientificJournals)}></SwitchButton>
+              <SwitchButton
+                onChange={() =>
+                  formik.setFieldValue(
+                    "verifyWithScientificJournals",
+                    !formik.values.verifyWithScientificJournals
+                  )
+                }
+              ></SwitchButton>
               <p>Cross reference claims with scientific literature</p>
             </div>
             <div className={styles.div9}>
               <h3> Influencer Name</h3>
               <input
                 type="text"
-                name= "influencerName"
+                name="influencerName"
                 placeholder="Enter influencer name"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              {/* Solo aparece el error si el campo ha sido tocado */}
+              {formik.touched.influencerName && formik.errors.influencerName ? (
+                <label className={styles.errorMessage}>
+                  {formik.errors.influencerName}
+                </label>
+              ) : (
+                ""
+              )}
             </div>
             <div className={styles.div10}>
               <h3> Claims to analize Per Influencer</h3>
@@ -179,6 +215,14 @@ export default function SearchInfluencer() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              {/* Solo aparece el error si el campo ha sido tocado */}
+              {formik.touched.claimsToAnalize && formik.errors.claimsToAnalize ? (
+                <label className={styles.errorMessage}>
+                  {formik.errors.claimsToAnalize}
+                </label>
+              ) : (
+                ""
+              )}
             </div>
             <div className={styles.div11}>
               <h3>Scientist Journals</h3>
@@ -247,7 +291,6 @@ export default function SearchInfluencer() {
               >
                 JAMA Network
               </button>
-              <p>Add new journal</p>
               <button
                 type="button"
                 onClick={() => setShowNewJournalInput(!showNewJournalInput)}
@@ -255,7 +298,7 @@ export default function SearchInfluencer() {
                 {showNewJournalInput ? "Cancel" : "Add New Journal"}
               </button>
               {showNewJournalInput && (
-                <div>
+                <div className={styles.newJournalInput}>
                   <input
                     type="text"
                     value={newJournal}
@@ -278,8 +321,8 @@ export default function SearchInfluencer() {
               onBlur={formik.handleBlur}
               placeholder="Add any specific instructions or focus areas"
             />
+            <button type="submit">Submit</button>
           </div>
-          <button type="submit">Submit</button>
         </form>
       </div>
     </>

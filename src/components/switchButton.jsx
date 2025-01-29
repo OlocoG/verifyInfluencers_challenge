@@ -1,11 +1,14 @@
-//import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-const SwitchButton = () => {
+const SwitchButton = ({ checked, onChange }) => {
   return (
     <StyledWrapper>
       <label className="switch">
-        <input defaultChecked type="checkbox" />
+        <input 
+          type="checkbox" 
+          checked={checked} 
+          onChange={onChange} // Actualiza el estado de Formik
+        />
         <div className="slider">
           <div className="circle">
             <svg className="cross" xmlSpace="preserve" style={{enableBackground: 'new 0 0 512 512'}} viewBox="0 0 365.696 365.696" y={0} x={0} height={6} width={6} xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +27,10 @@ const SwitchButton = () => {
     </StyledWrapper>
   );
 }
-
+SwitchButton.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired, // Add this line
+}
 const StyledWrapper = styled.div`
   .switch {
     /* switch */
@@ -166,6 +172,11 @@ const StyledWrapper = styled.div`
     left: calc(100% - var(--circle-diameter) - var(--switch-offset));
     -webkit-box-shadow: var(--circle-checked-shadow);
     box-shadow: var(--circle-checked-shadow);
-  }`;
+  };
+SwitchButton.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+}`;
+
 
 export default SwitchButton;

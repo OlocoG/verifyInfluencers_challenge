@@ -153,10 +153,15 @@ h4{
 }
 .div18 {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     grid-column: span 2 / span 2;
     grid-column-start: 3;
     grid-row-start: 7;
+}
+.div18 button{
+    height: auto;
+    margin: auto;
+    width: 45%;
 }
 .div19 {
     grid-column: span 2 / span 2;
